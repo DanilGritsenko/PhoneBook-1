@@ -99,7 +99,10 @@ function searchByNumber($query){
 			
             ?>
         </table>
-		
+		<h2>Esimene nimi XML failis</h2>
+		<?php
+			echo "<h4>".$computers -> kontakt -> nimi[0]."</h4>";
+		?>
 
     </body>
 </html>
