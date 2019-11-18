@@ -6,7 +6,6 @@
     <perekonnanimi>Trohhalev</perekonnanimi>
     <telefon>53004455</telefon>
 	<email>frixifon@gmail.com</email>
-	<sunnipaev>2000-09-15</sunnipaev>
   </kontakt>
   <kontakt>
     <id>2</id>
@@ -14,7 +13,6 @@
     <perekonnanimi>Vassiltseko</perekonnanimi>
     <telefon>53225544</telefon>
 	<email>qwilf@gmail.com</email>
-	<sunnipaev>2000-10-25</sunnipaev>
   </kontakt>
   <kontakt>
     <id>3</id>
@@ -22,7 +20,6 @@
     <perekonnanimi>Avtomobilev</perekonnanimi>
     <telefon>58020466</telefon>
 	<email>bibika@gmail.com</email>
-	<sunnipaev>1999-06-02</sunnipaev>
   </kontakt>
   <kontakt>
     <id>4</id>
@@ -30,6 +27,5 @@
     <perekonnanimi>Vinogradov</perekonnanimi>
     <telefon>59989988</telefon>
 	<email>vin@gmail.com</email>
-	<sunnipaev>2001-10-05</sunnipaev>
   </kontakt>
 </raamat>
