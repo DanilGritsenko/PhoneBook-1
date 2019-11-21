@@ -1,8 +1,9 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $computers = simplexml_load_file("kniga.xml");
 $counter = 0;
 $date_today = date("m.d.y");
-echo $computers -> kontakt[0] -> attributes() -> id;
+
 
 function searchByName($query){
     global $computers;
@@ -44,121 +45,137 @@ function searchByEmail($query){
     return $result;
 }
 
-$computer = array();
-foreach($computers->kontakt as $item) {
-    $computer[] = array(
-                     'id'             => (string)$item->id,
-                     'name'          => (string)$item->name,
-                     'surname'           => (string)$item->surname,
-                     'number'         => (string)$item->number,
-                     'email' => (string)$item->email
-                    );
-}
-array_sort_by_column($computer, 'Name');
-var_dump($computer);
-
-function array_sort_by_column(&$array, $column, $direction = SORT_ASC) {
-    $reference_array = array();
-
-    foreach($array as $key => $row) {
-        $reference_array[$key] = $row[$column];
-    }
-
-    array_multisort($reference_array, $direction, $array);
-}
-
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Telefoniraamat</title>
-        <meta charset="utf-8">
-      <link rel="stylesheet" type="text/css" href="skeleton.css">
-    </head>
-    <body>
-	<input type="submit" name="sort" value="Sort" onClick="array_sort_by_column">
-        <h1>Telefoniraamat</h1>
-       
-        <table border="1">
-            <tr>
-                <th>Nimi</th>
-                <th>Perenimi</th>
-                <th>Telefon</th>
-				<th>E-mail</th>
-				
-            </tr>
-            <?php
-          
-            foreach($computers -> kontakt as $arvuti) {
-                echo "<tr>";
-                echo "<td>".($arvuti -> nimi)."</td>";
-                echo "<td>".($arvuti -> perekonnanimi)."</td>";
-                echo "<td>".($arvuti -> telefon)."</td>";
-				echo "<td>".($arvuti -> email)."</td>";
-				
-                echo "</tr>";
-                }
-            
-            ?>
-        </table>
-        <br />
-		
-        <form method="post">
-            Search: <input type="text" name="search"/>
-			Otsing nimi järgi<input type="radio" name="radiofind"  value="name" checked>
-			Otsing perekonnanimi järgi<input type="radio" name="radiofind"  value="surname">
-			Otsing telefoni numbri järgi<input type="radio" name="radiofind" value="num">
-			Otsing emaili järgi<input type="radio" name="radiofind" value="email">
-            <input type="submit" value="Find" />
-        </form>
-		
-        <table border="1">
-         <tr>
-                <th>Nimi</th>
-                <th>Perenimi</th>
-                <th>Telefon</th>
-				<th>E-mail</th>
-				
-            </tr>
-            <?php
-            
-			if(!empty($_POST["search"])){
-				$answer = $_POST['radiofind'];
-				if ($answer == "name"){
-					$result = searchByName($_POST["search"]);
-				}
-				else if($answer == "num"){
-					$result = searchByNumber($_POST["search"]);
-				}
-				else if($answer == "surname"){
-					$result = searchBySurname($_POST["search"]);
-				}
-				else if($answer == "email"){
-					$result = searchByEmail($_POST["search"]);
-				}
-				
-			
-            foreach($result as $arvuti) {
-				$counter++;
-                echo "<tr>";
-                echo "<td>".($arvuti -> nimi)."</td>";
-                echo "<td>".($arvuti -> perekonnanimi)."</td>";
-                echo "<td>".($arvuti -> telefon)."</td>";
-				echo "<td>".($arvuti -> email)."</td>";
-				
-                echo "</tr>";
-                }
-				echo "Leitud ".($counter)." kontakti";
-            }
-			
-            ?>
-        </table>
-		
-		<h2>Esimene nimi XML failis</h2>
-		<?php
-			echo "<h4>".$computers -> kontakt -> nimi[0]."</h4>";
-		?>
-		
+<head>
+    <title>Telefoniraamat</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="skeleton.css">
+</head>
+<body>
+<h1>Telefoniraamat</h1>
 
-    </body>
+<table border="1">
+    <tr>
+        <th>Nimi</th>
+        <th>Perenimi</th>
+        <th>Telefon</th>
+        <th>E-mail</th>
+        <th> </th>
+
+    </tr>
+    <?php
+
+    foreach($computers -> kontakt as $arvuti) {
+        echo "<tr>";
+        echo "<td>".($arvuti -> nimi)."</td>";
+        echo "<td>".($arvuti -> perekonnanimi)."</td>";
+        echo "<td>".($arvuti -> telefon)."</td>";
+        echo "<td>".($arvuti -> email)."</td>";
+        ?>
+        <td><a href="index.php?id=<?php echo $arvuti['id']; ?> ">Muuda telefoni number</a></td>
+        <?php
+        echo "</tr>";
+    }
+
+    ?>
+</table>
+<br />
+
+<?php
+if(isset($_POST['submitSave'])){
+    foreach($computers -> kontakt as $arvuti){
+        if($arvuti['id']==$_POST['id']){
+            $arvuti -> telefon = $_POST['telefon'];
+            break;
+        }
+    }
+    file_put_contents('kniga.xml', $computers->asXML());
+    //header('location:index.php');
+}
+
+foreach($computers -> kontakt as $arvuti){
+    if($arvuti['id']==$_GET['id']){
+        $id = $arvuti['id'];
+        $number = $arvuti->telefon;
+        break;
+    }
+}
+?>
+<form method="post">
+    <table cellpading="2" cellspacing="2">
+        <tr>
+            <td>Id</td>
+            <td><input type="text" name="id" value="<?php echo $id; ?>" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td>Telefoni numbri muutmine</td>
+            <td><input type="text" name="telefon" value="<?php echo $number; ?>"></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><input type="submit" value="Muuda" name="submitSave"></td>
+        </tr>
+    </table>
+</form>
+
+<form method="post">
+    Search: <input type="text" name="search"/>
+    Otsing nimi järgi<input type="radio" name="radiofind"  value="name" checked>
+    Otsing perekonnanimi järgi<input type="radio" name="radiofind"  value="surname">
+    Otsing telefoni numbri järgi<input type="radio" name="radiofind" value="num">
+    Otsing emaili järgi<input type="radio" name="radiofind" value="email">
+    <input type="submit" value="Find" />
+</form>
+
+<table border="1">
+    <tr>
+        <th>Nimi</th>
+        <th>Perenimi</th>
+        <th>Telefon</th>
+        <th>E-mail</th>
+
+    </tr>
+    <?php
+
+    if(!empty($_POST["search"])){
+        $answer = $_POST['radiofind'];
+        if ($answer == "name"){
+            $result = searchByName($_POST["search"]);
+        }
+        else if($answer == "num"){
+            $result = searchByNumber($_POST["search"]);
+        }
+        else if($answer == "surname"){
+            $result = searchBySurname($_POST["search"]);
+        }
+        else if($answer == "email"){
+            $result = searchByEmail($_POST["search"]);
+        }
+
+
+        foreach($result as $arvuti) {
+            $counter++;
+            echo "<tr>";
+            echo "<td>".($arvuti -> nimi)."</td>";
+            echo "<td>".($arvuti -> perekonnanimi)."</td>";
+            echo "<td>".($arvuti -> telefon)."</td>";
+            echo "<td>".($arvuti -> email)."</td>";
+
+            echo "</tr>";
+        }
+        echo "Leitud ".($counter)." kontakti";
+    }
+
+    ?>
+</table>
+
+<h2>Esimene nimi XML failis</h2>
+<?php
+echo "<h4>".$computers -> kontakt -> nimi[0]."</h4>";
+?>
+
+
+</body>
 </html>

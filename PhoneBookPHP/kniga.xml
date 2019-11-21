@@ -1,31 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <raamat>
-  <kontakt>
-    <id>1</id>
+  <kontakt id="1">
     <nimi>Vladimir</nimi>
     <perekonnanimi>Trohhalev</perekonnanimi>
-    <telefon>53004455</telefon>
+    <telefon>53225534</telefon>
 	<email>frixifon@gmail.com</email>
   </kontakt>
-  <kontakt>
-    <id>2</id>
+  <kontakt id="2">
     <nimi>Vadim</nimi>
     <perekonnanimi>Vassiltseko</perekonnanimi>
-    <telefon>53225544</telefon>
+    <telefon>53004455</telefon>
 	<email>qwilf@gmail.com</email>
   </kontakt>
-  <kontakt>
-    <id>3</id>
+  <kontakt id="3">
     <nimi>Oleg</nimi>
     <perekonnanimi>Avtomobilev</perekonnanimi>
-    <telefon>58020466</telefon>
+    <telefon>213124254</telefon>
 	<email>bibika@gmail.com</email>
   </kontakt>
-  <kontakt>
-    <id>4</id>
+  <kontakt id="4">
     <nimi>Nikita</nimi>
     <perekonnanimi>Vinogradov</perekonnanimi>
-    <telefon>59989988</telefon>
+    <telefon>59989986</telefon>
 	<email>vin@gmail.com</email>
   </kontakt>
 </raamat>
