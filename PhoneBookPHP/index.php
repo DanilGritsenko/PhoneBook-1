@@ -86,7 +86,7 @@ function searchByEmail($query){
 <?php
 if(isset($_POST['submitSave'])){
     foreach($computers -> kontakt as $arvuti){
-        if($arvuti['id']==$_POST['id']){
+        if($arvuti['id'] == $_POST['id']){
             $arvuti -> telefon = $_POST['telefon'];
             break;
         }
@@ -96,8 +96,10 @@ if(isset($_POST['submitSave'])){
 }
 
 foreach($computers -> kontakt as $arvuti){
-    if($arvuti['id']==$_GET['id']){
+    if($arvuti['id'] == $_GET['id']){
         $id = $arvuti['id'];
+        $nimi = $arvuti -> nimi;
+        $perenimi = $arvuti -> perekonnanimi;
         $number = $arvuti->telefon;
         break;
     }
@@ -105,12 +107,17 @@ foreach($computers -> kontakt as $arvuti){
 ?>
 <form method="post">
     <table cellpading="2" cellspacing="2">
+            <input type="hidden" name="id" value="<?php echo $id; ?>" readonly="readonly">
         <tr>
-            <td>Id</td>
-            <td><input type="text" name="id" value="<?php echo $id; ?>" readonly="readonly"></td>
+            <td>Nimi:</td>
+            <td><input type="text" name="nimi" value="<?php echo $nimi; ?>" readonly="readonly"></td>
         </tr>
         <tr>
-            <td>Telefoni numbri muutmine</td>
+            <td>Perenimi:</td>
+            <td><input type="text" name="nimi" value="<?php echo $perenimi; ?>" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td>Telefoni number:</td>
             <td><input type="text" name="telefon" value="<?php echo $number; ?>"></td>
         </tr>
         <tr>

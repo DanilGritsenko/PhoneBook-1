@@ -3,7 +3,7 @@
   <kontakt id="1">
     <nimi>Vladimir</nimi>
     <perekonnanimi>Trohhalev</perekonnanimi>
-    <telefon>53225534</telefon>
+    <telefon>53225533</telefon>
 	<email>frixifon@gmail.com</email>
   </kontakt>
   <kontakt id="2">
@@ -15,13 +15,13 @@
   <kontakt id="3">
     <nimi>Oleg</nimi>
     <perekonnanimi>Avtomobilev</perekonnanimi>
-    <telefon>213124254</telefon>
+    <telefon>213124256</telefon>
 	<email>bibika@gmail.com</email>
   </kontakt>
   <kontakt id="4">
     <nimi>Nikita</nimi>
     <perekonnanimi>Vinogradov</perekonnanimi>
-    <telefon>59989986</telefon>
+    <telefon>59989987</telefon>
 	<email>vin@gmail.com</email>
   </kontakt>
 </raamat>
